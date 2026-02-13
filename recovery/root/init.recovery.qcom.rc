@@ -1,0 +1,13 @@
+on init
+    setprop ro.twrp.fastbootd 1
+    setprop ro.boot.fastbootd false
+
+on fs
+    wait /dev/block/platform/soc.0/${ro.boot.bootdevice}
+    symlink /dev/block/platform/soc.0/${ro.boot.bootdevice} /dev/block/bootdevice
+    # steadfasterX: make double tap work in TWRP
+    write /sys/devices/virtual/input/lge_touch/tap2wake 1
+
+
+on boot
+    start health-hal-2-1
